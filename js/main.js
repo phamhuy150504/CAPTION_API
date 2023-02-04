@@ -254,7 +254,6 @@ introMoney(arrCart);
 window.introMoney = introMoney;
 
 
-
 //totalProducts 
 let showResultTotal = () => {
     const pay = $('#fa-pager');
@@ -277,7 +276,6 @@ let showResultTotal = () => {
 showResultTotal();
 window.totalProducts = totalProducts;
 window.showResultTotal = showResultTotal;
-
 
 
 // remove Products from
