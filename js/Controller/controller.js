@@ -18,9 +18,10 @@ export let renderProducts = (data) => {
                 </div>
             </div>
         `
-    }, '')
+    }, '');
     mainHTML.innerHTML = content;
 }
+
 
 // ---- push type products ----- 
 export let changProduct = (products, iphone, samsung) => {
@@ -29,11 +30,10 @@ export let changProduct = (products, iphone, samsung) => {
             samsung.push(product);
         } else{
             iphone.push(product);
-        }
-    })
-}
+        };
+    });
+;}
 
-// ---- remove producte ----
 
 
 

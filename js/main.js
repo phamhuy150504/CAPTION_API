@@ -3,23 +3,23 @@ import { renderCart, amountProduct, introMoney, totalProducts } from "./Controll
 import { WantRemove } from "./Controller/Modal.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-let arrCart = [];
 
-
-
-let jsonDanhSachNhanVien = localStorage.getItem('CartLocal')
-if (jsonDanhSachNhanVien != null) {
-    arrCart = JSON.parse(jsonDanhSachNhanVien)
-}
-
-function SetJson(data) {
-    let JsonDSSV = JSON.stringify(data)
-    localStorage.setItem('CartLocal', JsonDSSV)
-}
 const Base_URL = `https://63da518c2af48a60a7ca9426.mockapi.io/Product`
 let products = [];
 let iphone = [];
 let samsung = [];
+let arrCart = [];
+
+
+// set localStorge 
+let SetJson = (data) => {
+    let JsonDSSV = JSON.stringify(data)
+    localStorage.setItem('CartLocal', JsonDSSV)
+};
+let jsonDanhSachNhanVien = localStorage.getItem('CartLocal')
+if (jsonDanhSachNhanVien != null) {
+    arrCart = JSON.parse(jsonDanhSachNhanVien)
+};
 
 
 // fetch API 
@@ -28,32 +28,35 @@ const fetAPI = () => {
         url: Base_URL,
         method: 'GET'
     }).then(res => {
-        renderProducts(res.data)
-        changProduct(res.data, iphone, samsung)
+        renderProducts(res.data);
+        changProduct(res.data, iphone, samsung);
 
         products.push(...res.data);
     }).catch(err => {
         console.log(err);
-    })
-}
+    });
+};
 fetAPI();
-// --- change product --- 
+
+
+// Change Product
 const onChangeProduct = () => {
     let idSelectProduct = $('#changeProduct').value;
-    idSelectProduct === '1' ? renderProducts(iphone) : idSelectProduct === '2' ? renderProducts(samsung) : renderProducts(products)
+    idSelectProduct === '1' ? renderProducts(iphone) : idSelectProduct === '2' ? renderProducts(samsung) : renderProducts(products);
 }
 window.onChangeProduct = onChangeProduct;
 
-// see detail 
+
+// See Detail 
 const seeDetails = (id) => {
-    let render_details = $('#render_detail')
-    let content = ``
+    let render_details = $('#render_detail');
+    let content = ``;
     products.forEach(product => {
-        let { img, name, price, screen, backCamera, frontCamera, desc } = product
+        let { img, name, price, screen, backCamera, frontCamera, desc } = product;
         if (product.id == id) {
             return (content = `
                 <div class='col-6'>
-                   <div class=' '>
+                   <div class='img_detail p-3 bg-white rounded text-center mx-5 mb-5'>
                         <img src="${img}" class='photos-detail' />
                     </div>
                 </div>
@@ -85,13 +88,13 @@ const seeDetails = (id) => {
                     </tr>
                     </table>
                 </div>
-            `)
-        }
-    }, ``)
-
-    render_details.innerHTML = content
+            `);
+        };
+    });
+    render_details.innerHTML = content;
 }
 window.seeDetails = seeDetails;
+
 
 // Add to Cart 
 const addToCart = (id) => {
@@ -105,12 +108,11 @@ const addToCart = (id) => {
                 price: product.price,
                 amount: 1,
             }
-            arrTest.push(productCart)
+            arrTest.push(productCart);
         }
     });
     if (arrCart.length > 0) {
-        let index = arrCart.findIndex(product => product.id == id)
-        // index != -1 ? arrCart[index].amount++ : arrCart.push(arrTest[0]);
+        let index = arrCart.findIndex(product => product.id == id);
         if (index != -1) {
             if (arrCart[index].amount === 10) {
                 alert('Sorry! You added enough product amount to cart');
@@ -119,7 +121,7 @@ const addToCart = (id) => {
             arrCart[index].amount++;
         } else {
             arrCart.push(arrTest[0]);
-        }
+        };
     } else {
         arrCart.push(arrTest[0]);
     };
@@ -130,22 +132,38 @@ const addToCart = (id) => {
 window.addToCart = addToCart;
 
 
-// ---- CLEAR CART -----
+// Clear Products In Cart
 let clearCart = () => {
+    if (arrCart.length > 0) { 
+        WantRemove();
+        Yes();
+        wantNo();
+        renderCart(arrCart)
+        amountProduct(arrCart);
+        SetJson(arrCart);
+    } else {
+        alert('Sorry, You not added products to Cart !!');
+    }
+};
+// Sum AmountProduct
+window.amountProduct = amountProduct;
+
+window.clearCart = clearCart;
+window.renderCart = renderCart;
+renderCart(arrCart);
+amountProduct(arrCart);
+
+
+// clear when done 
+let clearDone = () => {
     arrCart = [];
     renderCart(arrCart);
     amountProduct(arrCart);
     SetJson(arrCart);
-}
-window.clearCart = clearCart;
-window.renderCart = renderCart;
-renderCart(arrCart);
-amountProduct(arrCart)
-// ------ SumAmount Product add to cart ----------
-window.amountProduct = amountProduct;
+};
 
 
-// ----- increase amountProduct and reduced amountProduct ------
+// Increase AmountProduct
 let increase = (id) => {
     let index = arrCart.findIndex(product => product.id * 1 === id);
     if (arrCart[index].amount === 1) {
@@ -161,6 +179,7 @@ let increase = (id) => {
 };
 window.WantRemove = WantRemove;
 
+
 // onclick yes => remove product
 let wantYes = (index) => {
     const modalId = $('#modelId');
@@ -169,19 +188,36 @@ let wantYes = (index) => {
     const btn_yes = $('#btn__remove-yes');
     btn_yes.onclick = () => {
         if (index !== -1) {
-            console.log(index)
-            arrCart.splice(index, 1)
-            console.log(arrCart)
+            arrCart.splice(index, 1);
             want_remove.style = `display: none`;
             modalId.style = `display: block`;
             backdrop.style = `position: fixed`;
             renderCart(arrCart);
             amountProduct(arrCart);
             SetJson(arrCart);
-        }
-    }
-}
+        };
+    };
+};
 
+
+// click yes => remove all products 
+let Yes = () => {
+    const modalId = $('#modelId');
+    const want_remove = $('#want__remove');
+    const backdrop = $('.modal-backdrop');
+    const btn_yes = $('#btn__remove-yes');
+    btn_yes.onclick = () => {
+        arrCart = [];
+        want_remove.style = `display: none`;
+        modalId.style = `display: block`;
+        backdrop.style = `position: fixed`;
+        renderCart(arrCart);
+        amountProduct(arrCart);
+        SetJson(arrCart);
+    };
+};
+
+// oncick no => return
 let wantNo = () => {
     const modalId = $('#modelId');
     const want_remove = $('#want__remove');
@@ -191,13 +227,13 @@ let wantNo = () => {
         want_remove.style = `display: none`;
         modalId.style = `display: block`;
         backdrop.style = `position: fixed`;
-    }
-            
-}
+    };
+};
 window.wantYes = wantYes;
 window.wantNo = wantNo;
 
 
+// reuduced products 
 let reduced = (id) => {
     let index = arrCart.findIndex(product => product.id * 1 === id);
     if (arrCart[index].amount === 10) {
@@ -212,33 +248,37 @@ let reduced = (id) => {
 window.increase = increase;
 window.reduced = reduced;
 
+
 // Intro money
 introMoney(arrCart);
 window.introMoney = introMoney;
 
+
+
 //totalProducts 
 let showResultTotal = () => {
-    ;
-    const pay = $('.fa-pager')
+    const pay = $('#fa-pager');
     const resultTotal = $('#result__total');
     const bannerTotal = $('#total__Products');
     const done = $('#btn__banner-total');
     pay.onclick = () => {
         if (arrCart.length > 0) {
-            bannerTotal.style = `display: block;`
-            resultTotal.innerHTML = `Total: ${totalProducts(arrCart)}`
-            clearCart();
+            bannerTotal.style = `display: block;`;
+            resultTotal.innerHTML = `Total: ${totalProducts(arrCart)}`;
+            clearDone();
         } else {
-            alert('Sorry, You not added products to Cart !!')
+            alert('Sorry, You not added products to Cart !!');
         };
-    }
+    };
     done.onclick = () => {
         bannerTotal.style = `display: none;`;
     };
-}
+};
 showResultTotal();
 window.totalProducts = totalProducts;
 window.showResultTotal = showResultTotal;
+
+
 
 // remove Products from
 let removeProduct = (id) => {

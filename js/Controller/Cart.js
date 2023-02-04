@@ -1,7 +1,8 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-// ---- render Cart -----
+
+// Render Cart 
 export let renderCart = (arrCart) => {
     let tbody_cart = $('#tbody_cartProduct');
     if (arrCart.length > 0) {
@@ -20,44 +21,41 @@ export let renderCart = (arrCart) => {
                     <td onclick='removeProduct(${item.id})'><i class="fa fa-trash"></i></td>
                 </tr>
             `
-        }, ``)
+        }, ``);
         tbody_cart.innerHTML = contentHTML;
     } else {
-        return tbody_cart.innerHTML = ``
+        return tbody_cart.innerHTML = ``;
     };
-}
-
-// export 
+};
 
 
-// ----- Amount products in cart ------
+// Amount Product In Cart 
 export let amountProduct = (data) => {
     const spanAmount = $('#span_amount');
     let amountSum = data.reduce((init, item) => {
         return init += item.amount;
     }, 0);
     spanAmount.innerHTML = `(${amountSum})`;
-}
+};
+
 
 // intro money products
 export let introMoney = (data) => {
-    let result = $('#fa-pager')
+    let result = $('#fa-pager');
     result.onclick = () => {
         let total = data.reduce((totalSum, item) => {
             return totalSum += item.amount * item.price;
         }, 0)
-        return total
+        return total;
     }
 }
 
+
 // total  products
 export let totalProducts = (data) => {
-    console.log(data)
     let sum = data.reduce((sumSum, item) => {
         return sumSum += item.amount * item.price;
     }, 0);
-    return sum
+    return sum;
 }
 
-
-// remove removeProduct 
