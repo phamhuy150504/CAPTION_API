@@ -18,6 +18,34 @@ body {
     background-color: rgba(0, 0, 0, 0.75);
     display: none;
 }
+#want__remove {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    color: white;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+}
+.want__remove-banner {
+    padding: 0 20px;
+    background-color: #6c757d;
+    width: 400px;
+    height: 110px;
+    position: absolute;
+    top: 50%;
+    opacity: 0.95;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.want__remove-banner button {
+    margin-left: 5px;
+    padding: 5px 20px;
+    
+}
+#btn__remove-yes {
+    margin-left: 62%;
+}
 #btn__banner-total {
     margin-left: 75%;
     transform: translateY(-10px);

@@ -1,5 +1,6 @@
 import { renderProducts, changProduct } from "./Controller/controller.js";
 import { renderCart, amountProduct, introMoney, totalProducts } from "./Controller/Cart.js";
+import { WantRemove } from "./Controller/Modal.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 let arrCart = [];
@@ -15,7 +16,6 @@ function SetJson(data) {
     let JsonDSSV = JSON.stringify(data)
     localStorage.setItem('CartLocal', JsonDSSV)
 }
-console.log(arrCart)
 const Base_URL = `https://63da518c2af48a60a7ca9426.mockapi.io/Product`
 let products = [];
 let iphone = [];
@@ -53,7 +53,7 @@ const seeDetails = (id) => {
         if (product.id == id) {
             return (content = `
                 <div class='col-6'>
-                   <div class='img_detail p-3 bg-white rounded text-center mx-5 mb-5'>
+                   <div class=' '>
                         <img src="${img}" class='photos-detail' />
                     </div>
                 </div>
@@ -113,9 +113,9 @@ const addToCart = (id) => {
         // index != -1 ? arrCart[index].amount++ : arrCart.push(arrTest[0]);
         if (index != -1) {
             if (arrCart[index].amount === 10) {
-                alert('abc')
-                return
-            }
+                alert('Sorry! You added enough product amount to cart');
+                return;
+            };
             arrCart[index].amount++;
         } else {
             arrCart.push(arrTest[0]);
@@ -149,12 +149,54 @@ window.amountProduct = amountProduct;
 let increase = (id) => {
     let index = arrCart.findIndex(product => product.id * 1 === id);
     if (arrCart[index].amount === 1) {
+        WantRemove(id, arrCart);
+        wantYes(index);
+        wantNo();
         return;
     }
     arrCart[index].amount--;
-    renderCart(arrCart);;
+    renderCart(arrCart);
     amountProduct(arrCart);
+    SetJson(arrCart);
 };
+window.WantRemove = WantRemove;
+
+// onclick yes => remove product
+let wantYes = (index) => {
+    const modalId = $('#modelId');
+    const want_remove = $('#want__remove');
+    const backdrop = $('.modal-backdrop');
+    const btn_yes = $('#btn__remove-yes');
+    btn_yes.onclick = () => {
+        if (index !== -1) {
+            console.log(index)
+            arrCart.splice(index, 1)
+            console.log(arrCart)
+            want_remove.style = `display: none`;
+            modalId.style = `display: block`;
+            backdrop.style = `position: fixed`;
+            renderCart(arrCart);
+            amountProduct(arrCart);
+            SetJson(arrCart);
+        }
+    }
+}
+
+let wantNo = () => {
+    const modalId = $('#modelId');
+    const want_remove = $('#want__remove');
+    const backdrop = $('.modal-backdrop');
+    const btn_no = $('#btn__remove-no');
+    btn_no.onclick = () => { 
+        want_remove.style = `display: none`;
+        modalId.style = `display: block`;
+        backdrop.style = `position: fixed`;
+    }
+            
+}
+window.wantYes = wantYes;
+window.wantNo = wantNo;
+
 
 let reduced = (id) => {
     let index = arrCart.findIndex(product => product.id * 1 === id);
@@ -165,6 +207,7 @@ let reduced = (id) => {
     arrCart[index].amount++;
     renderCart(arrCart);
     amountProduct(arrCart);
+    SetJson(arrCart);
 }
 window.increase = increase;
 window.reduced = reduced;
@@ -201,9 +244,12 @@ window.showResultTotal = showResultTotal;
 let removeProduct = (id) => {
     arrCart.forEach((item, index) => {
         if (item.id == id) {
-            arrCart.splice(index, 1);
+            WantRemove();
+            wantYes(index);
+            wantNo();
             renderCart(arrCart)
             amountProduct(arrCart);
+            SetJson(arrCart);
         };
     });
 }
