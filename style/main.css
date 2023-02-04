@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(to left, #8942a8, #ba382f);
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+}
+#total__Products {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    color: white;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+}
+#btn__banner-total {
+    margin-left: 75%;
+    transform: translateY(-10px);
+}
+.total_content {
+    background-color: #6c757d;
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    opacity: 0.95;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.modal-content {
+    width: 900px;
+    transform: translateX(-150px);
+}
+.fa-pager {
+    color: #6665dd;
+}
+.fa-trash {
+    color:#bb342f;
+}
+#root {
+    height: 100%;
+    height:100vh;
+    position: relative;
+   
+}
+
+#root span {
+    font-size: 20px;
+}
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#root select {
+    padding: 0 5px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+}
+.card  {
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 16px;
+}
+.card img {
+    width: 100%;
+    height: 300px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 20px;
+}
+.anhManh {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.photos-detail {
+    width: 60%;
+    height: 300px;
+    border-radius: 8px;
+}
+#cart {
+    text-align: right;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    top: 30px;
+}
+.fa {
+    font-size: 30px;
+}
+
+#amount {
+    transform: translate(5px,-55px);
+    cursor: pointer;
+}
+#amount span {
+    font-weight: bold;
+}
+.img__cart-product {
+    width:70px;
+    height: 80px;
+}
+#img_detail{
+    background-color: white;
+}
+.change_amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.change_amount button {
+    margin-bottom: 1rem;
+    border: .5px solid black;
+    border-radius: 50%;
+    font-size: 10px;
+    transition: all .3s;
+}
+.change_amount button:hover { 
+    background-color: #6c757d;
+    color: white;
+}
+.change_amount p {
+    margin: 0px 7px 1rem;
+}
+.change_amount button i{
+    font-size: 15px;
+}
+
