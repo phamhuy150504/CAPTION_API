@@ -217,7 +217,7 @@ let Yes = () => {
   };
 };
 
-// oncick no => return
+//  click no => return
 let wantNo = () => {
   const modalId = $("#modelId");
   const want_remove = $("#want__remove");
