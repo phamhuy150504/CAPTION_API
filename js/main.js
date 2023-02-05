@@ -95,7 +95,7 @@ const seeDetails = (id) => {
                     </table>
                 </div>
             `);
-    }
+    };
   });
   render_details.innerHTML = content;
 };
@@ -122,14 +122,14 @@ const addToCart = (id) => {
       if (arrCart[index].amount === 10) {
         alert("Sorry! You added enough product amount to cart");
         return;
-      }
+      };
       arrCart[index].amount++;
     } else {
       arrCart.push(arrTest[0]);
-    }
+    };
   } else {
     arrCart.push(arrTest[0]);
-  }
+  };
   SetJson(arrCart);
   renderCart(arrCart);
   amountProduct(arrCart);
@@ -147,7 +147,7 @@ let clearCart = () => {
     SetJson(arrCart);
   } else {
     alert("Sorry, You not added products to Cart !!");
-  }
+  };
 };
 // Sum AmountProduct
 window.amountProduct = amountProduct;
@@ -173,7 +173,7 @@ let increase = (id) => {
     wantYes(index);
     wantNo();
     return;
-  }
+  };
   arrCart[index].amount--;
   renderCart(arrCart);
   amountProduct(arrCart);
@@ -196,7 +196,7 @@ let wantYes = (index) => {
       renderCart(arrCart);
       amountProduct(arrCart);
       SetJson(arrCart);
-    }
+    };
   };
 };
 
@@ -264,7 +264,7 @@ let showResultTotal = () => {
       clearDone();
     } else {
       alert("Sorry, You not added products to Cart !!");
-    }
+    };
   };
   done.onclick = () => {
     bannerTotal.style = `display: none;`;
@@ -284,7 +284,7 @@ let removeProduct = (id) => {
       renderCart(arrCart);
       amountProduct(arrCart);
       SetJson(arrCart);
-    }
+    };
   });
 };
 window.removeProduct = removeProduct;
