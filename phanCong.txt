@@ -1,0 +1,7 @@
+--- Pham Gia Huy ---- 
+1. branch phamHuy
+2. Đảm nhiệm làm phần 1 ( trang sản phẩm ) 
+
+---- Duy Truong -----
+1. branch abc
+2. Đảm nhiệm làm phần 2 ( trang admin)
