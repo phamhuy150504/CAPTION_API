@@ -9,7 +9,6 @@ function fetchQLSPList() {
       renderDanhSachSP(res.data);
       data.push(...res.data);
     })
-
     .catch(function (err) {
       console.log(err);
     });
@@ -107,9 +106,7 @@ function capNhatSP() {
 // Kiểm tra Validate
 function validation() {
   var SP = layThongTinTuFrom();
-  console.log(SP.desc);
   var isValid = true;
-  console.log(isValid);
   if (!kiemTraRong(SP.name, 0, "tbName")) {
     isValid = false;
   }
@@ -131,15 +128,14 @@ function validation() {
   }
 
   if (!kiemTraRong(SP.img, 5, "tbHinhAnh")) {
+    console.log(document.querySelector("#tbHinhAnh").innerHTML);
     isValid = false;
   }
 
-  if (!kiemTraRong(SP.desc, 6, "tbMoTa")) {
+  if (!kiemTraRong(SP.desc, 3, "tbMoTa")) {
     isValid = false;
-  }
-  if (!ktrMoTa(SP.desc, "tbMoTa", 20)) {
+  } else if (!ktrMoTa(SP.desc, "tbMoTa", 20)) {
     isValid = false;
-    console.log(1);
   }
   if (!kiemTraChon(SP.type, "tbLSP")) {
     isValid = false;

@@ -11,9 +11,7 @@ let error = [
 function kiemTraRong(el, message, idNotify) {
   if (el == "") {
     return (
-      (document.getElementById(idNotify).innerHTML = error[message]),
-      (document.getElementById(idNotify).style.display = `block`),
-      false
+      (document.getElementById(idNotify).innerHTML = error[message]), false
     );
   } else {
     return (
@@ -25,12 +23,14 @@ function kiemTraRong(el, message, idNotify) {
 }
 // kiểm tra chọn
 function kiemTraChon(value, idErr) {
-  var value = value.trim();
-  var a = document.getElementById(idErr);
   if (value == "0") {
-    return (a.innerHTML = `Phải chọn`), (a.style.display = "block"), false;
+    return (
+      (document.getElementById(idErr).innerHTML = `Phải chọn loại sản phẩm`),
+      (document.getElementById(idErr).style.display = "block"),
+      false
+    );
   } else {
-    return (a.innerHTML = ``), true;
+    return (document.getElementById(idErr).innerHTML = ``), true;
   }
 }
 // kiểm tra mô tả
@@ -39,6 +39,7 @@ function ktrMoTa(moTa, span, max) {
     document.getElementById(
       span
     ).innerHTML = `Mô tả không vượt quá ${max} ký tự`;
+    document.getElementById(span).style.display = "block";
     return false;
   } else {
     document.getElementById(span).innerHTML = ``;
