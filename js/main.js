@@ -288,3 +288,4 @@ let removeProduct = (id) => {
   });
 };
 window.removeProduct = removeProduct;
+
